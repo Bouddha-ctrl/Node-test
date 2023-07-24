@@ -1,0 +1,17 @@
+{
+  "name": "node_db_test",
+  "version": "18.16.1",
+  "description": "nodejs db benchmark",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mmiri",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "pg": "^8.11.1",
+    "sequelize": "^6.32.1"
+  }
+}
