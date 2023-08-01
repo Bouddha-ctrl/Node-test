@@ -1,26 +1,19 @@
-import { connect } from '../config/db.config.js';
+import { client } from '../config/db.config.js';
 
 export default class ClassARepository {
 
     db = {};
-
-    constructor() {
-        this.db = connect();
-        // For Development
-        this.db.sequelize.sync({ force: true }).then(() => {
-            console.log("Drop and re-sync db.");
-        });
-    }
+    tableName = "class_a";
 
     async getAllClassA() {
         
         try {
-            const classAList = await this.db.classA.findAll();
-            console.log('classA:::', classAList);
-            return classAList;
-        } catch (err) {
-            console.log(err);
+            const query = `SELECT * FROM ${this.tableName}`;
+            const result = await client.query(query);
+            return result.rows;
+          } catch (err) {
+            console.error(`Error reading table ${this.tableName}:`, err);
             return [];
-        }
+          }
     }
 }

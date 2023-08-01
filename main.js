@@ -1,5 +1,16 @@
-import mainservice from './service/mainservice.service';
+import MainService from './service/mainservice.service.js'
 
-console.log("hello");
+    
+export async function main() {
+    const mainService = new MainService();
+    let calssAList = await mainService.getAllClassA();
+    
+    await mainService.saveAllClassB(calssAList);
 
-await mainservice.getAllClassA();
+    let classBList = await mainService.getAllClassB();
+    console.log("class b table size :",classBList.length);
+
+    await mainService.closeConnection();
+  }
+  
+main().catch((err) => console.error('Unhandled error:', err));

@@ -1,25 +1,32 @@
-import classARepository from '../repository/classA.repository.js';
-import classBRepository from '../repository/classB.repository.js';
+import ClassARepository from '../repository/classA.repository.js';
+import ClassBRepository from '../repository/classB.repository.js';
+import { connectToDB, closeConnection } from '../config/db.config.js';
 
-export class MainService {
 
-    constructor() {}
+export default class MainService {
+
+    classARepository = null;
+    classBRepository = null;
+
+    constructor() {
+        connectToDB();
+        this.classARepository = new ClassARepository();
+        this.classBRepository = new ClassBRepository();
+    }
 
     async getAllClassA() {
-        return await classARepository.getAllClassA();
+        return await this.classARepository.getAllClassA();
     }
-/*
-    async createTask(task) {
-        return await taskRepository.createTask(task);
-    }
-
-    async updateTask(task) {
-        return await taskRepository.updateTask(task);
+    async getAllClassB() {
+        return await this.classBRepository.getAllClassB();
     }
 
-    async deleteTask(taskId) {
-        return await taskRepository.deleteTask(taskId);
+    async saveAllClassB(classBList) {
+        return await this.classBRepository.saveAllClassB(classBList);
     }
-*/
+
+    async closeConnection() {
+        closeConnection();
+    }
 }
 
